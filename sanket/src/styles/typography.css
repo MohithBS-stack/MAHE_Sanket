@@ -1,0 +1,127 @@
+/* ==========================================================================
+   SANKET — Typography System
+   frontend-design.md §4: Typefaces, scale, per-surface minimums.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Font family stacks
+   Fonts are loaded in index.html via Google Fonts.
+   -------------------------------------------------------------------------- */
+:root {
+  /* Display / brand / big numbers (risk gauge number, page titles, product name) */
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+
+  /* UI body — Latin text, labels, buttons, log entries */
+  --font-ui: 'Inter', system-ui, sans-serif;
+
+  /* Live transcript + spoken-alert captions — MUST cover Devanagari/Kannada/Tamil.
+     Order matters: Noto Sans covers Latin fallback too, so the stack handles
+     code-mixed lines (English word + Hindi word + Kannada word) without tofu boxes. */
+  --font-multiscript: 'Noto Sans Devanagari', 'Noto Sans Kannada', 'Noto Sans Tamil',
+                      'Noto Sans', system-ui, sans-serif;
+
+  /* Timestamps, confidence %, latency ms — tabular data only, never as decoration */
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* --------------------------------------------------------------------------
+   Type scale — base 16px, ratio 1.25
+   12 / 14 / 16 / 20 / 25 / 31 / 39 / 49 px
+   -------------------------------------------------------------------------- */
+:root {
+  --text-xs:   0.75rem;   /* 12px — log meta, confidence indicators */
+  --text-sm:   0.875rem;  /* 14px — Console body minimum */
+  --text-base: 1rem;      /* 16px — base */
+  --text-md:   1.25rem;   /* 20px — card labels, section headers */
+  --text-lg:   1.5625rem; /* 25px — panel titles */
+  --text-xl:   1.9375rem; /* 31px — page headings */
+  --text-2xl:  2.4375rem; /* 39px — gauge percentage number */
+  --text-3xl:  3.0625rem; /* 49px — hero display, elder alert warning text */
+
+  --line-height-tight:  1.2;
+  --line-height-normal: 1.5;
+  --line-height-loose:  1.75;
+
+  /* Max line length for prose readability */
+  --max-prose-width: 70ch;
+}
+
+/* --------------------------------------------------------------------------
+   Base element typography
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-ui);
+  font-size: var(--text-base);
+  line-height: var(--line-height-normal);
+  color: var(--text-primary);
+  background-color: var(--bg-page);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* --------------------------------------------------------------------------
+   Utility classes
+   -------------------------------------------------------------------------- */
+
+/* Display / brand */
+.font-display { font-family: var(--font-display); }
+.font-ui      { font-family: var(--font-ui); }
+.font-script  { font-family: var(--font-multiscript); }
+.font-mono    { font-family: var(--font-mono); }
+
+/* Size utilities */
+.text-xs   { font-size: var(--text-xs); }
+.text-sm   { font-size: var(--text-sm); }
+.text-base { font-size: var(--text-base); }
+.text-md   { font-size: var(--text-md); }
+.text-lg   { font-size: var(--text-lg); }
+.text-xl   { font-size: var(--text-xl); }
+.text-2xl  { font-size: var(--text-2xl); }
+.text-3xl  { font-size: var(--text-3xl); }
+
+/* Weight utilities */
+.font-normal   { font-weight: 400; }
+.font-medium   { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.font-bold     { font-weight: 700; }
+
+/* Color utilities */
+.text-primary   { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted     { color: var(--text-muted); }
+
+/* --------------------------------------------------------------------------
+   Calm-mode (elder) typography overrides
+   Per §4: minimum body size 24px, AAA contrast where feasible
+   Applied via [data-surface="calm"] wrapper
+   -------------------------------------------------------------------------- */
+[data-surface="calm"] {
+  font-size: 1.5rem;       /* 24px minimum per elder-accessibility research */
+  line-height: var(--line-height-loose);
+}
+
+[data-surface="calm"] .text-sm,
+[data-surface="calm"] .text-base,
+[data-surface="calm"] .text-md {
+  font-size: 1.5rem; /* Floor all text at 24px in Calm mode */
+}
+
+[data-surface="calm"] h1,
+[data-surface="calm"] h2 {
+  font-family: var(--font-multiscript); /* Headings in Calm mode use multiscript stack */
+}

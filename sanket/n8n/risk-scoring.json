@@ -1,0 +1,138 @@
+{
+  "name": "Sanket — Scam Risk Scoring Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "risk-score",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook: Receive Transcript",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "sanket-risk-score"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prepare transcript window text for LLM analysis\nconst body = $input.first().json.body || $input.first().json;\nconst transcript = body.transcript_window || [];\n\nconst windowText = transcript.map(line => `[${line.language || 'auto'}] ${line.text}`).join('\\n');\n\nreturn {\n  json: {\n    session_id: body.session_id || 'unknown',\n    window_text: windowText,\n    line_count: transcript.length\n  }\n};"
+      },
+      "id": "format-input",
+      "name": "Format Transcript Window",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an expert fraud and scam detection analyst specializing in Indian elder financial fraud and social engineering tactics.\n\nAnalyze the following live phone call transcript excerpt:\n{{ $json.window_text }}\n\nIdentify if any of the following threat indicators are present:\n1. Urgent threats (arrest, account freeze, power cut, SIM block, legal action)\n2. Impersonation of authority (Bank officer, Police, CBI, TRAI, Electricity Board, Courier)\n3. Coercion for sensitive credentials (OTP, PIN, Card number, CVV, NetBanking password)\n4. Instructions to download remote access apps (AnyDesk, TeamViewer, RustDesk) or click suspicious APK links\n5. Immediate money transfers under false pretenses\n\nRespond ONLY with a valid JSON object matching this schema:\n{\n  \"risk_score\": <number from 0 to 100>,\n  \"flagged_phrases\": [<array of exact suspicious phrases or keywords detected>],\n  \"reasoning_trace\": \"<brief 1-2 sentence explanation of detected risk and rationale>\"\n}",
+        "options": {
+          "temperature": 0.1
+        }
+      },
+      "id": "llm-reasoning",
+      "name": "LLM: Scam Reasoning Node",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.4,
+      "position": [
+        680,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse and normalize LLM response to 0-100 scale and threshold categories\nconst input = $input.first().json;\nlet parsed = {};\n\ntry {\n  const responseText = input.text || input.response || (typeof input === 'string' ? input : JSON.stringify(input));\n  // Extract JSON block if wrapped in markdown\n  const jsonMatch = responseText.match(/\\{[\\s\\S]*\\}/);\n  if (jsonMatch) {\n    parsed = JSON.parse(jsonMatch[0]);\n  } else {\n    parsed = JSON.parse(responseText);\n  }\n} catch (e) {\n  parsed = {\n    risk_score: 0,\n    flagged_phrases: [],\n    reasoning_trace: 'Failed to parse LLM structured output'\n  };\n}\n\nconst score = Math.max(0, Math.min(100, Math.round(Number(parsed.risk_score) || 0)));\nconst level = score >= 70 ? 'DANGER' : score >= 40 ? 'CAUTION' : 'SAFE';\n\nreturn {\n  json: {\n    risk_score: score,\n    threat_level: level,\n    flagged_phrases: Array.isArray(parsed.flagged_phrases) ? parsed.flagged_phrases : [],\n    reasoning_trace: parsed.reasoning_trace || 'Evaluated transcript against financial fraud markers.',\n    timestamp: new Date().toISOString()\n  }\n};"
+      },
+      "id": "normalize-score",
+      "name": "Normalize Score & Categorize",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "id": "respond-webhook",
+      "name": "Respond to Sanket App",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook: Receive Transcript": {
+      "main": [
+        [
+          {
+            "node": "Format Transcript Window",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Transcript Window": {
+      "main": [
+        [
+          {
+            "node": "LLM: Scam Reasoning Node",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM: Scam Reasoning Node": {
+      "main": [
+        [
+          {
+            "node": "Normalize Score & Categorize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Score & Categorize": {
+      "main": [
+        [
+          {
+            "node": "Respond to Sanket App",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

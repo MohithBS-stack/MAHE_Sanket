@@ -1,0 +1,43 @@
+.state-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px 4px 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-chip);
+  border: 1px solid var(--color-fog-border);
+}
+
+.state-chip__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.state-chip__label {
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+/* State colors */
+.state-chip--safe    .state-chip__dot { background: var(--color-signal-teal); }
+.state-chip--caution .state-chip__dot { background: var(--color-marigold); }
+.state-chip--danger  .state-chip__dot { background: var(--color-alarm-crimson); }
+
+/* Danger: pulse animation */
+.state-chip--danger .state-chip__dot {
+  animation: chip-pulse 1s ease-in-out infinite;
+}
+
+.state-chip--caution .state-chip__label { color: var(--color-marigold); }
+.state-chip--danger  .state-chip__label { color: var(--color-alarm-crimson); }
+
+@keyframes chip-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .state-chip--danger .state-chip__dot { animation: none; }
+}

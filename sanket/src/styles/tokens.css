@@ -1,0 +1,136 @@
+/* ==========================================================================
+   SANKET — Design Token System
+   frontend-design.md §3: Color tokens, theme system, dual light/dark mode.
+
+   Usage:
+   - [data-theme="dark"]  → Console, History, Incident Report, Settings (guardian)
+   - [data-theme="light"] → Elder idle screen (default)
+   - Alert Takeover       → fixed alarm-crimson, ignores theme entirely (see §3.1)
+
+   Rules:
+   - Never introduce a color not in this list without a content reason.
+   - Disabled/muted states: use existing tokens at reduced opacity.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Root defaults: dark theme for Guardian Console (per §3.1)
+   -------------------------------------------------------------------------- */
+:root,
+[data-theme="dark"] {
+  /* Page background — deepest layer, Console only */
+  --color-abyss: #071317;
+
+  /* Elevated panel surface on dark */
+  --color-ink-dusk: #0f272e;
+  --color-card-bg: rgba(15, 39, 46, 0.75);
+
+  /* Primary text on dark (dimmed off-white, not pure #FFF — halation risk) */
+  --color-mist: #e4efef;
+
+  /* Risk state: SAFE — brand accent, "listening" idle */
+  --color-signal-teal: #2bb3a3;
+  --color-signal-teal-bright: #00f2c3;
+
+  /* Risk state: CAUTION */
+  --color-marigold: #f2a93b;
+  --color-marigold-bright: #ffb74d;
+
+  /* Risk state: DANGER — inside themed UI only (gauge, log, chips) */
+  --color-alarm-crimson: #d6294b;
+  --color-alarm-crimson-bright: #ff3366;
+
+  /* Glass panel fill — ONLY for panel backgrounds, NEVER behind text */
+  --color-fog: rgba(245, 250, 250, 0.05);
+
+  /* Glass panel border */
+  --color-fog-border: rgba(228, 239, 239, 0.12);
+  --color-border-subtle: rgba(228, 239, 239, 0.08);
+
+  /* Solid chip background for text inside glass panels (≥92% opaque) */
+  --color-chip: rgba(13, 34, 40, 0.92);
+  --color-chip-hover: rgba(20, 50, 58, 0.95);
+
+  /* Page background alias */
+  --bg-page: var(--color-abyss);
+
+  /* Modern glow effects */
+  --glow-teal: 0 0 24px rgba(43, 179, 163, 0.35);
+  --glow-amber: 0 0 24px rgba(242, 169, 59, 0.35);
+  --glow-danger: 0 0 32px rgba(214, 41, 75, 0.45);
+
+  /* Gradients */
+  --grad-surface: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.01) 100%);
+  --grad-teal: linear-gradient(135deg, #2bb3a3 0%, #157367 100%);
+  --grad-danger: linear-gradient(135deg, #ff3366 0%, #c41838 100%);
+  --grad-amber: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.45);
+  --shadow-glass: 0 10px 30px rgba(0, 0, 0, 0.3);
+
+  /* Primary text alias */
+  --text-primary: var(--color-mist);
+  --text-secondary: rgba(228, 239, 239, 0.7);
+  --text-muted: rgba(228, 239, 239, 0.4);
+}
+
+/* --------------------------------------------------------------------------
+   Light theme — Elder idle screen default + Guardian Console light variant
+   -------------------------------------------------------------------------- */
+[data-theme="light"] {
+  /* No abyss in light mode */
+
+  /* Primary text on light surfaces */
+  --color-ink-dusk: #0e2a2e;
+
+  /* Light background — teal-leaning white, not warm cream */
+  --color-mist: #f5fafa;
+
+  /* Risk state: SAFE — darker shade for 4.5:1 on light bg */
+  --color-signal-teal: #1f8f82;
+
+  /* Risk state: CAUTION — darker shade for contrast on light */
+  --color-marigold: #b97a12;
+
+  /* Risk state: DANGER — inside themed UI */
+  --color-alarm-crimson: #b81c3b;
+
+  /* Glass fill — light variant */
+  --color-fog: rgba(14, 42, 46, 0.06);
+  --color-fog-border: rgba(14, 42, 46, 0.1);
+
+  /* Solid chip */
+  --color-chip: rgba(245, 250, 250, 0.96);
+
+  --bg-page: var(--color-mist);
+  --text-primary: var(--color-ink-dusk);
+  --text-secondary: rgba(14, 42, 46, 0.6);
+  --text-muted: rgba(14, 42, 46, 0.35);
+}
+
+/* --------------------------------------------------------------------------
+   Alert Takeover — FIXED colors, never follows theme (§3.1)
+   Applied via .alert-takeover class, not a theme swap
+   -------------------------------------------------------------------------- */
+.alert-takeover {
+  --alert-bg: #d6294b;
+  --alert-text: #ffffff;
+  --alert-btn-primary-bg: rgba(255, 255, 255, 0.95);
+  --alert-btn-primary-text: #d6294b;
+  --alert-btn-secondary-bg: rgba(255, 255, 255, 0.15);
+  --alert-btn-secondary-text: #ffffff;
+  --alert-btn-secondary-border: rgba(255, 255, 255, 0.4);
+}
+
+/* --------------------------------------------------------------------------
+   Risk score color utilities (used in gauge, chips, log entries)
+   -------------------------------------------------------------------------- */
+.risk-safe    { color: var(--color-signal-teal); }
+.risk-caution { color: var(--color-marigold); }
+.risk-danger  { color: var(--color-alarm-crimson); }
+
+.risk-safe-bg    { background-color: var(--color-signal-teal); }
+.risk-caution-bg { background-color: var(--color-marigold); }
+.risk-danger-bg  { background-color: var(--color-alarm-crimson); }

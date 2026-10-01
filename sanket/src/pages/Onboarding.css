@@ -1,0 +1,172 @@
+/* ==========================================================================
+   SANKET — Onboarding & Setup (View A)
+   ========================================================================== */
+
+.onboarding-page {
+  min-height: 100vh;
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.onboarding-card {
+  width: 100%;
+  max-width: 520px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.onboarding-brand {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.brand-logo {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-signal-teal);
+  letter-spacing: -0.02em;
+}
+
+.brand-vernacular {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+}
+
+.brand-tagline {
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.onboarding-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-fog-border);
+}
+
+.step-dot {
+  color: var(--text-muted);
+}
+
+.step-dot--active {
+  color: var(--color-signal-teal);
+  font-weight: 700;
+}
+
+.step-sep {
+  color: var(--text-muted);
+}
+
+.onboarding-step-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.step-title {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.step-desc {
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.45;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input-field {
+  background: var(--color-chip);
+  border: 1px solid var(--color-fog-border);
+  color: var(--text-primary);
+  padding: 0.65rem 0.85rem;
+  border-radius: 8px;
+  outline: none;
+}
+
+.input-field:focus {
+  border-color: var(--color-signal-teal);
+}
+
+.field-hint {
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+.range-slider {
+  accent-color: var(--color-signal-teal);
+  width: 100%;
+}
+
+.mic-check-box {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.mic-status-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.mic-icon {
+  font-size: 1.5rem;
+}
+
+.mic-title {
+  margin: 0;
+}
+
+.mic-sub {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.error-msg {
+  color: var(--color-alarm-crimson);
+  margin: 0;
+}
+
+.btn-full {
+  width: 100%;
+  justify-content: center;
+  padding: 0.75rem;
+}
+
+.btn-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.btn-row .btn {
+  flex: 1;
+  justify-content: center;
+  padding: 0.7rem;
+}

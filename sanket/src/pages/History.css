@@ -1,0 +1,223 @@
+/* ==========================================================================
+   SANKET — Incident History (View F)
+   frontend-design.md §5, §9: Incident cards list & filter controls
+   ========================================================================== */
+
+.history-page {
+  min-height: 100vh;
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 2rem;
+  gap: 1.25rem;
+  box-sizing: border-box;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+}
+
+.history-header__left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.back-link {
+  color: var(--color-signal-teal);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.history-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.btn-clear-history {
+  background: transparent;
+  border: 1px solid rgba(214, 41, 75, 0.4);
+  color: var(--color-alarm-crimson);
+  padding: 0.45rem 0.85rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-clear-history:hover {
+  background: rgba(214, 41, 75, 0.15);
+}
+
+/* Stats Cards */
+.history-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .history-stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stat-card {
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.stat-label {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.1;
+}
+
+.stat-value--danger {
+  color: var(--color-alarm-crimson);
+}
+
+.stat-value--caution {
+  color: var(--color-marigold);
+}
+
+.stat-sub {
+  color: var(--text-muted);
+}
+
+/* Controls & Filter Bar */
+.history-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.25rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--color-chip);
+  border: 1px solid var(--color-fog-border);
+  border-radius: 8px;
+  padding: 0.45rem 0.85rem;
+  flex: 1;
+  min-width: 260px;
+}
+
+.search-icon {
+  color: var(--text-muted);
+}
+
+.search-input {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  width: 100%;
+  outline: none;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--text-secondary);
+}
+
+.filter-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.filter-select {
+  background: var(--color-chip);
+  color: var(--text-primary);
+  border: 1px solid var(--color-fog-border);
+  border-radius: 6px;
+  padding: 0.35rem 0.6rem;
+  outline: none;
+}
+
+/* Privacy Notice Banner */
+.privacy-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-left: 3px solid var(--color-signal-teal);
+}
+
+.privacy-icon {
+  font-size: 1.25rem;
+}
+
+.privacy-text {
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.privacy-text strong {
+  color: var(--text-primary);
+}
+
+/* Incidents List */
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.empty-history {
+  padding: 3rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.empty-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(43, 179, 163, 0.15);
+  color: var(--color-signal-teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.empty-title {
+  margin: 0;
+}
+
+.empty-desc {
+  color: var(--text-secondary);
+  margin: 0;
+}

@@ -1,0 +1,97 @@
+.incident-card {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--color-fog);
+  border: var(--glass-border);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  animation: card-appear 0.15s ease forwards;
+}
+
+.incident-card:hover,
+.incident-card:focus-visible {
+  background: rgba(255, 255, 255, 0.06);
+  outline: 2px solid var(--color-signal-teal);
+  outline-offset: 2px;
+}
+
+[data-theme="light"] .incident-card:hover {
+  background: rgba(14, 42, 46, 0.08);
+}
+
+@keyframes card-appear {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Score badge */
+.incident-card__score {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 1px;
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-signal-teal);
+  background: var(--color-chip);
+  border-radius: var(--radius-md);
+  padding: var(--space-1);
+  text-align: center;
+}
+
+.incident-card__score--caution { color: var(--color-marigold); }
+.incident-card__score--danger  { color: var(--color-alarm-crimson); }
+
+.incident-card__score-unit {
+  font-size: var(--text-xs);
+  opacity: 0.7;
+}
+
+/* Body */
+.incident-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.incident-card__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.incident-card__date {
+  color: var(--text-muted);
+}
+
+.incident-card__duration {
+  color: var(--text-secondary);
+}
+
+.incident-card__lang {
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+  background: rgba(43, 179, 163, 0.15);
+  color: var(--color-signal-teal);
+  font-weight: 500;
+}
+
+.incident-card__excerpt {
+  /* Multiscript font for transcript text */
+  font-family: var(--font-multiscript);
+  color: var(--text-secondary);
+  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.incident-card__action {
+  color: var(--text-muted);
+}

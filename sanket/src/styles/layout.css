@@ -1,0 +1,247 @@
+/* ==========================================================================
+   SANKET — Layout System
+   frontend-design.md §5: 8px base unit, 12-column grid, Calm single column.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   8px base spacing scale
+   -------------------------------------------------------------------------- */
+:root {
+  --space-1:  0.5rem;    /* 8px */
+  --space-2:  1rem;      /* 16px */
+  --space-3:  1.5rem;    /* 24px */
+  --space-4:  2rem;      /* 32px */
+  --space-5:  2.5rem;    /* 40px */
+  --space-6:  3rem;      /* 48px */
+  --space-8:  4rem;      /* 64px */
+  --space-10: 5rem;      /* 80px */
+  --space-12: 6rem;      /* 96px */
+
+  /* Touch targets */
+  --touch-console: 48px;
+  --touch-calm:    64px;
+
+  /* Border radius */
+  --radius-sm:  6px;
+  --radius-md:  12px;
+  --radius-lg:  20px;
+  --radius-xl:  28px;
+  --radius-full: 9999px;
+
+  /* Glass panel */
+  --glass-blur:   12px;
+  --glass-border: 1px solid var(--color-fog-border);
+
+  /* Transitions */
+  --transition-fast:   150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow:   400ms ease;
+
+  /* Z-index layers */
+  --z-base:     1;
+  --z-overlay:  100;
+  --z-takeover: 999;
+}
+
+/* --------------------------------------------------------------------------
+   Global layout resets
+   -------------------------------------------------------------------------- */
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+img, video, svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------
+   App shell
+   -------------------------------------------------------------------------- */
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   Console layout — 12-column responsive grid (Guardian dashboard)
+   Per §5 ASCII wireframe: left 8/12 (transcript+waveform), right 4/12 (gauge+phrases)
+   -------------------------------------------------------------------------- */
+.console-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: auto 1fr auto;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  height: 100vh;
+  overflow: hidden;
+}
+
+.console-header {
+  grid-column: 1 / -1;
+}
+
+.console-main-left {
+  grid-column: 1 / 9;   /* 8 of 12 columns */
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  overflow: hidden;
+}
+
+.console-main-right {
+  grid-column: 9 / 13;  /* 4 of 12 columns */
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.console-footer {
+  grid-column: 1 / -1;
+}
+
+/* --------------------------------------------------------------------------
+   Glass panel — only for panel backgrounds (§6 rule: never behind text)
+   Text content must always sit on a .chip inside the glass panel.
+   -------------------------------------------------------------------------- */
+.glass-panel {
+  background: var(--color-fog);
+  border: var(--glass-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  padding: var(--space-2);
+  overflow: hidden;
+}
+
+/* Text inside glass — ≥92% opaque chip. MANDATORY for any readable string on Console */
+.chip {
+  background: var(--color-chip);
+  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+/* --------------------------------------------------------------------------
+   Calm mode — single column, no glass, no blur (§2 + §6)
+   -------------------------------------------------------------------------- */
+.calm-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--space-4);
+  background-color: var(--bg-page);
+  text-align: center;
+}
+
+/* Calm mode buttons — 64px minimum touch target */
+.calm-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: var(--touch-calm);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-multiscript);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: var(--line-height-tight);
+  transition: opacity var(--transition-fast);
+}
+
+.calm-btn:active {
+  opacity: 0.85;
+}
+
+/* --------------------------------------------------------------------------
+   Console buttons — 48px minimum touch target
+   -------------------------------------------------------------------------- */
+.console-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch-console);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-md);
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  transition: background-color var(--transition-fast), opacity var(--transition-fast);
+}
+
+.console-btn-primary {
+  background-color: var(--color-signal-teal);
+  color: #fff;
+}
+
+.console-btn-primary:hover {
+  opacity: 0.88;
+}
+
+/* --------------------------------------------------------------------------
+   Scrollable areas
+   -------------------------------------------------------------------------- */
+.scroll-area {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-fog-border) transparent;
+}
+
+.scroll-area::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scroll-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-area::-webkit-scrollbar-thumb {
+  background-color: var(--color-fog-border);
+  border-radius: var(--radius-full);
+}
+
+/* --------------------------------------------------------------------------
+   Responsive fallbacks (for screens where 12-col breaks)
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .console-main-left  { grid-column: 1 / -1; }
+  .console-main-right { grid-column: 1 / -1; }
+  .console-grid {
+    grid-template-rows: auto auto auto auto;
+    height: auto;
+    overflow: visible;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Motion preferences (§7 + §6.2 — Calm mode: zero decorative motion)
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

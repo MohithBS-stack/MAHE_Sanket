@@ -1,0 +1,278 @@
+/* ==========================================================================
+   SANKET — Elder Companion Idle (Senior-Friendly Theme)
+   ========================================================================== */
+
+.elder-idle-page {
+  min-height: 100vh;
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  box-sizing: border-box;
+}
+
+.elder-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.elder-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-signal-teal);
+  letter-spacing: -0.02em;
+}
+
+.elder-brand-vernacular {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+}
+
+.elder-lang-pills {
+  display: flex;
+  background: var(--color-chip);
+  border: 1px solid var(--color-fog-border);
+  border-radius: 9999px;
+  padding: 3px;
+  gap: 3px;
+}
+
+.lang-pill {
+  padding: 0.35rem 0.8rem;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.lang-pill:hover {
+  color: var(--text-primary);
+}
+
+.lang-pill--active {
+  background: var(--color-signal-teal);
+  color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.guardian-mode-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.45rem 0.85rem;
+  border-radius: 8px;
+  background: var(--color-chip);
+  border: 1px solid var(--color-fog-border);
+  transition: all 0.2s ease;
+}
+
+.guardian-mode-link:hover {
+  color: var(--text-primary);
+  background: var(--color-chip-hover);
+}
+
+.elder-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  text-align: center;
+  max-width: 680px;
+  margin: 1.5rem auto;
+  width: 100%;
+}
+
+.elder-status-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  width: 100%;
+}
+
+/* Pulsing Status Aura */
+.elder-pulse-ring {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(43, 179, 163, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.25rem;
+  transition: all 0.4s ease;
+  position: relative;
+}
+
+.elder-pulse-ring--active {
+  background: rgba(43, 179, 163, 0.2);
+  box-shadow: 
+    0 0 0 16px rgba(43, 179, 163, 0.08),
+    0 0 0 32px rgba(43, 179, 163, 0.04);
+  animation: aura-breathe 2.5s ease-in-out infinite;
+}
+
+@keyframes aura-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+.elder-inner-aura {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s ease;
+}
+
+.elder-status-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--color-signal-teal);
+  box-shadow: 0 0 16px var(--color-signal-teal);
+}
+
+.elder-greeting {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.elder-state-text {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--color-signal-teal);
+  margin: 0;
+  line-height: 1.35;
+}
+
+.elder-sub-text {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Big Action Button (Touch target >= 68px) */
+.elder-action-btn {
+  margin-top: 1rem;
+  width: 100%;
+  max-width: 480px;
+  min-height: 68px;
+  border-radius: 18px;
+  border: none;
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, filter 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+}
+
+.elder-btn-icon {
+  font-size: 1.5rem;
+}
+
+.elder-action-btn--start {
+  background: var(--grad-teal);
+  color: #ffffff;
+  box-shadow: 0 8px 28px rgba(43, 179, 163, 0.4);
+}
+
+.elder-action-btn--stop {
+  background: var(--grad-danger);
+  color: #ffffff;
+  box-shadow: 0 8px 28px rgba(214, 41, 75, 0.4);
+}
+
+.elder-action-btn:hover:not(:disabled) {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+.elder-action-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+/* Secondary Actions */
+.elder-secondary-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 480px;
+}
+
+.elder-contact-btn {
+  background: var(--color-chip);
+  border: 1px solid var(--color-fog-border);
+  color: var(--text-primary);
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.elder-contact-btn:hover {
+  background: var(--color-chip-hover);
+  border-color: var(--color-signal-teal);
+}
+
+.elder-call-notice {
+  font-size: 0.85rem;
+  color: var(--color-signal-teal);
+  background: rgba(43, 179, 163, 0.15);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid rgba(43, 179, 163, 0.3);
+}
+
+/* Demo trigger */
+.elder-demo-trigger {
+  margin-top: 1rem;
+}
+
+.elder-sim-btn {
+  background: transparent;
+  border: 1px dashed var(--text-muted);
+  color: var(--text-secondary);
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.elder-sim-btn:hover:not(:disabled) {
+  border-color: var(--color-signal-teal);
+  color: var(--color-signal-teal);
+}

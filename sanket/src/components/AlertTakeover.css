@@ -1,0 +1,144 @@
+/* ==========================================================================
+   AlertTakeover — fixed alarm-crimson, NEVER follows light/dark theme (§3.1)
+   This file uses hard-coded values, not CSS custom properties from tokens.css,
+   because the alert is intentionally theme-independent.
+   ========================================================================== */
+
+.alert-takeover {
+  /* Fixed: always alarm-crimson regardless of device theme */
+  background-color: #d6294b;
+  color: #ffffff;
+
+  /* Full-screen overlay */
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-takeover);
+
+  /* Calm mode: single column, centered (§5) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+
+  /* Entry animation: 150–250ms — warning feel, no bounce (§7) */
+  animation: takeover-appear 0.2s ease forwards;
+}
+
+@keyframes takeover-appear {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Must still communicate instantly via color + icon + sound, animation is bonus */
+  @keyframes takeover-appear { from {} to {} }
+}
+
+.alert-takeover__inner {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  text-align: center;
+}
+
+/* Warning icon */
+.alert-takeover__icon {
+  font-size: 3.5rem;
+  line-height: 1;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+}
+
+/* Message block */
+.alert-takeover__message {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+.alert-takeover__native {
+  /* Native language first — large, multiscript font */
+  font-family: var(--font-multiscript);
+  font-size: 1.75rem; /* ~28px — large and clear */
+  font-weight: 600;
+  line-height: 1.3;
+  color: #ffffff;
+}
+
+.alert-takeover__english {
+  /* English subtitle — always shown, never a toggle (§FR-C2) */
+  font-family: var(--font-ui);
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.4;
+}
+
+/* Action buttons container */
+.alert-takeover__actions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* Override calm-btn base for primary action */
+.alert-takeover__btn-primary {
+  background: rgba(255, 255, 255, 0.95);
+  color: #d6294b;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: var(--touch-calm); /* ≥64px touch target */
+  border-radius: var(--radius-lg);
+  padding: var(--space-2) var(--space-4);
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.alert-takeover__btn-primary:hover,
+.alert-takeover__btn-primary:focus-visible {
+  background: #ffffff;
+  outline: 3px solid #ffffff;
+  outline-offset: 3px;
+}
+
+/* Secondary action */
+.alert-takeover__btn-secondary {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: var(--touch-calm); /* ≥64px touch target */
+  border-radius: var(--radius-lg);
+  padding: var(--space-2) var(--space-4);
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.alert-takeover__btn-secondary:hover,
+.alert-takeover__btn-secondary:focus-visible {
+  background: rgba(255, 255, 255, 0.25);
+  outline: 3px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 3px;
+}
+
+/* English sub-label inside each button */
+.alert-takeover__btn-en {
+  font-size: 0.9rem;
+  font-weight: 400;
+  opacity: 0.75;
+  display: block;
+}

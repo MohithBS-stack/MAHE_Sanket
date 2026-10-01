@@ -1,0 +1,269 @@
+/* ==========================================================================
+   SANKET — Post-Call Incident Report (View D)
+   frontend-design.md §5, TECHNICAL.md §3: Structured incident summary
+   ========================================================================== */
+
+.incident-report-page {
+  min-height: 100vh;
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 2rem;
+  gap: 1.25rem;
+  box-sizing: border-box;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.report-not-found {
+  padding: 3rem 2rem;
+  text-align: center;
+  margin: 4rem auto;
+  max-width: 500px;
+}
+
+.report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.report-header__left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.report-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.status-pill {
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.status-pill--danger {
+  background: rgba(214, 41, 75, 0.2);
+  color: var(--color-alarm-crimson);
+  border: 1px solid rgba(214, 41, 75, 0.4);
+}
+
+.status-pill--caution {
+  background: rgba(242, 169, 59, 0.2);
+  color: var(--color-marigold);
+  border: 1px solid rgba(242, 169, 59, 0.4);
+}
+
+.status-pill--safe {
+  background: rgba(43, 179, 163, 0.2);
+  color: var(--color-signal-teal);
+  border: 1px solid rgba(43, 179, 163, 0.4);
+}
+
+.report-meta {
+  color: var(--text-muted);
+}
+
+/* Grid Layout */
+.report-grid {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 1.25rem;
+}
+
+@media (max-width: 900px) {
+  .report-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.report-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.report-section {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.section-title {
+  color: var(--text-secondary);
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.section-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lang-tag {
+  color: var(--color-signal-teal);
+}
+
+.report-summary-text {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* Excerpt box */
+.excerpt-box {
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.excerpt-pre {
+  margin: 0;
+  white-space: pre-wrap;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+/* Timeline */
+.timeline-steps {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding: 0.75rem 0.25rem;
+}
+
+.timeline-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  position: relative;
+}
+
+.timeline-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+
+.timeline-node--danger .timeline-dot {
+  background: var(--color-alarm-crimson);
+  box-shadow: 0 0 8px var(--color-alarm-crimson);
+}
+
+.timeline-node--caution .timeline-dot {
+  background: var(--color-marigold);
+  box-shadow: 0 0 8px var(--color-marigold);
+}
+
+.timeline-node--safe .timeline-dot {
+  background: var(--color-signal-teal);
+}
+
+.timeline-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timeline-score {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.timeline-time {
+  color: var(--text-muted);
+}
+
+/* Aside */
+.report-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.aside-card {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.aside-title {
+  color: var(--text-secondary);
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.report-gauge-box {
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 0;
+}
+
+.meta-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.meta-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-fog-border);
+  padding-bottom: 0.4rem;
+}
+
+.meta-label {
+  color: var(--text-secondary);
+}
+
+.meta-val {
+  color: var(--text-primary);
+}
+
+.text-teal {
+  color: var(--color-signal-teal);
+}
+
+.report-phrases-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.report-phrase-tag {
+  background: rgba(214, 41, 75, 0.15);
+  color: var(--color-alarm-crimson);
+  border: 1px solid rgba(214, 41, 75, 0.35);
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+}
