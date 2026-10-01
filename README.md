@@ -14,6 +14,55 @@ Sanket listens to live phone calls on speakerphone, streams continuous audio int
 
 ---
 
+## 💡 Our Solution
+
+Sanket creates a real-time protection pipeline:
+
+```text
+             📞 Live Call
+                  │
+                  ▼
+        🎙 Audio Capture
+                  │
+                  ▼
+        🔊 Audio Processing
+        16 kHz PCM / VAD
+                  │
+                  ▼
+       🇮🇳 Sarvam Saaras v3
+        Speech → Text (ASR)
+                  │
+                  ▼
+       🧠 Threat Detection
+       ┌──────────────────┐
+       │ Local Scam Rules │
+       │        +         │
+       │ Optional LLM/N8N │
+       └──────────────────┘
+                  │
+                  ▼
+          📊 Risk Score
+           0% ───── 100%
+                  │
+          ┌───────┴────────┐
+          ▼                ▼
+       Low Risk        High Risk
+          │                │
+          ▼                ▼
+      Continue       🚨 Intervention
+                           │
+             ┌─────────────┴─────────────┐
+             ▼                           ▼
+      🔊 Vernacular Alert          📱 Elder Alert
+             │                           │
+             └─────────────┬─────────────┘
+                           ▼
+                  👨‍👩‍👧 Guardian Alert
+                         Telegram
+```
+
+---
+
 ## ✨ Key Features
 
 1. **🎙 Continuous 16kHz Studio Audio Pipeline**:
